@@ -44,7 +44,7 @@ def create_wordcloud(selected_user, df):
 
     # custom stopwords
     custom_stopwords = set(STOPWORDS)
-    custom_stopwords.update(["media", "omitted", "<Media", "omitted>", "edited", "message", "deleted"])
+    custom_stopwords.update(["media", "omitted", "<Media", "omitted>", "edited", "message", "deleted", "message deleted", "message edited"])
 
     wc = WordCloud(
         width=2000,
