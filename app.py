@@ -44,21 +44,21 @@ if uploaded_file is not None:
             st.header("Total Links Shared")
             st.title(num_links)
 
-        # finding the busiest users in the group
         if selected_user == "Overall":
             st.title("Most active users")
             x, new_df = helper.most_active_users(df)
-            x.drop(labels='group_notification', axis=0, inplace=True)
+            x.drop(labels='group_notification', axis=0, inplace=True, errors='ignore')
             fig, ax = plt.subplots()
 
             col1, col2 = st.columns(2)
 
             with col1:
-                ax.bar(x.index, x.values, color = 'green')
+                ax.bar(x.index, x.values, color='green')
                 st.pyplot(fig)
 
             with col2:
                 st.dataframe(new_df)
+
 
         # WordCloud
         st.title("Word Cloud")
