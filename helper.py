@@ -44,7 +44,11 @@ def create_wordcloud(selected_user, df):
 
     # custom stopwords
     custom_stopwords = set(STOPWORDS)
-    custom_stopwords.update(["media", "omitted", "<Media", "omitted>", "edited", "message", "deleted", "message deleted", "message edited"])
+    custom_stopwords.update([
+        "media", "omitted", "<Media", "omitted>",
+        "edited", "message", "deleted",
+        "message deleted", "message edited"
+    ])
 
     wc = WordCloud(
         width=2000,
@@ -54,11 +58,13 @@ def create_wordcloud(selected_user, df):
         stopwords=custom_stopwords
     )
 
-    # Ensure messages are strings and drop NaN
     text = df['message'].dropna().astype(str).str.cat(sep=" ")
-    df_wc = wc.generate(text)
 
-    return df_wc
+    if len(text.strip()) == 0:
+        return None
+
+    return wc.generate(text)
+
 
 def most_common_words(selected_user, df):
 
