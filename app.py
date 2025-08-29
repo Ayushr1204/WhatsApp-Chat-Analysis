@@ -17,8 +17,13 @@ if uploaded_file is not None:
     data = bytes_data.decode('utf-8')
     df = preprocessor.preprocess(data)
 
+    # 🔍 Debug: check if DataFrame looks correct
+    st.write("Data preview:", df.head())
+    st.write("Unique users found:", df['user'].unique())
+
     # Fetch unique users
     user_list = df['user'].unique().tolist()
+
     if 'group_notification' in user_list:
         user_list.remove('group_notification')
     user_list.sort()
@@ -63,9 +68,14 @@ if uploaded_file is not None:
         # WordCloud
         st.title("Word Cloud")
         df_wc = helper.create_wordcloud(selected_user, df)
-        fig, ax = plt.subplots()
-        ax.imshow(df_wc)
-        st.pyplot(fig)
+        if df_wc is not None:
+            fig, ax = plt.subplots()
+            ax.imshow(df_wc)
+            ax.axis("off")
+            st.pyplot(fig)
+        else:
+            st.warning("Not enough words to generate a Word Cloud.")
+
 
         # most common words
         st.title("Most common words")
