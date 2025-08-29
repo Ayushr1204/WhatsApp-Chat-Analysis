@@ -17,10 +17,6 @@ if uploaded_file is not None:
     data = bytes_data.decode('utf-8')
     df = preprocessor.preprocess(data)
 
-    # 🔍 Debug: check if DataFrame looks correct
-    st.write("Data preview:", df.head())
-    st.write("Unique users found:", df['user'].unique())
-
     # Fetch unique users
     user_list = df['user'].unique().tolist()
 
